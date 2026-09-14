@@ -1,6 +1,6 @@
-﻿// Utilitários de exportação para CSV e JSON
+// Utilitários de exportação para CSV e JSON
 
-export function exportToCsv<T extends Record<string, any>>(
+export function exportToCsv<T extends object>(
   filename: string,
   data: T[],
   headers: { key: keyof T; label: string }[]
@@ -9,9 +9,10 @@ export function exportToCsv<T extends Record<string, any>>(
 
   const headerRow = headers.map((h) => `"${h.label}"`).join(";");
   const rows = data.map((item) => {
+    const record = item as unknown as Record<string, unknown>;
     return headers
       .map((h) => {
-        const val = item[h.key];
+        const val = record[h.key as string];
         if (val === null || val === undefined) return '""';
         if (typeof val === "number") {
           return `"${val.toString().replace(".", ",")}"`;
@@ -26,7 +27,7 @@ export function exportToCsv<T extends Record<string, any>>(
   triggerDownload(blob, `${filename}.csv`);
 }
 
-export function exportToJson(filename: string, data: any) {
+export function exportToJson<T>(filename: string, data: T) {
   const jsonString = JSON.stringify(data, null, 2);
   const blob = new Blob([jsonString], { type: "application/json;charset=utf-8;" });
   triggerDownload(blob, `${filename}.json`);

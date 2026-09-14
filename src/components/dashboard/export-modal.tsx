@@ -21,15 +21,15 @@ import {
 } from "@/data/ecommerce-dataset";
 import { exportToCsv, exportToJson } from "@/lib/export-utils";
 
+type DatasetType = "monthly" | "categories" | "states" | "payments" | "histogram";
+
 interface ExportModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
 export function ExportModal({ open, onOpenChange }: ExportModalProps) {
-  const [selectedDataset, setSelectedDataset] = useState<
-    "monthly" | "categories" | "states" | "payments" | "histogram"
-  >("monthly");
+  const [selectedDataset, setSelectedDataset] = useState<DatasetType>("monthly");
   const [exported, setExported] = useState(false);
 
   const handleExportCsv = () => {
@@ -93,7 +93,7 @@ export function ExportModal({ open, onOpenChange }: ExportModalProps) {
   };
 
   const handleExportJson = () => {
-    let dataToExport: any = MONTHLY_TRENDS;
+    let dataToExport: unknown = MONTHLY_TRENDS;
     if (selectedDataset === "categories") dataToExport = CATEGORIES_DATA;
     if (selectedDataset === "states") dataToExport = STATES_DATA;
     if (selectedDataset === "payments") dataToExport = PAYMENT_METHODS_DATA;
@@ -125,15 +125,15 @@ export function ExportModal({ open, onOpenChange }: ExportModalProps) {
           </label>
           <div className="grid grid-cols-1 gap-2">
             {[
-              { id: "monthly", title: "Séries Temporais (24 Meses)", sub: "98k pedidos, GMV, Ticket e NPS mensal" },
-              { id: "categories", title: "Top Categorias & Departamentos", sub: "Receita, ticket, prazo de entrega e notas" },
-              { id: "states", title: "Distribuição Geográfica (UFs)", sub: "Volume por estado, frete médio e lead time" },
-              { id: "payments", title: "Meios de Pagamento", sub: "Split de cartões, parcelamento, boleto e Pix" },
-              { id: "histogram", title: "Distribuição Estatística (Ticket)", sub: "Histograma de frequências e cauda longa" },
+              { id: "monthly" as const, title: "Séries Temporais (24 Meses)", sub: "98k pedidos, GMV, Ticket e NPS mensal" },
+              { id: "categories" as const, title: "Top Categorias & Departamentos", sub: "Receita, ticket, prazo de entrega e notas" },
+              { id: "states" as const, title: "Distribuição Geográfica (UFs)", sub: "Volume por estado, frete médio e lead time" },
+              { id: "payments" as const, title: "Meios de Pagamento", sub: "Split de cartões, parcelamento, boleto e Pix" },
+              { id: "histogram" as const, title: "Distribuição Estatística (Ticket)", sub: "Histograma de frequências e cauda longa" },
             ].map((item) => (
               <button
                 key={item.id}
-                onClick={() => setSelectedDataset(item.id as any)}
+                onClick={() => setSelectedDataset(item.id)}
                 className={`p-3 rounded-xl text-left border transition-all flex items-center justify-between ${
                   selectedDataset === item.id
                     ? "bg-cyan-500/15 border-cyan-500/40 text-white shadow-md shadow-cyan-500/10"
