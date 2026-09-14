@@ -1,6 +1,7 @@
-﻿import React from "react";
+import React from "react";
 import Link from "next/link";
-import { BarChart3, Github, ExternalLink, Heart, Database, ShieldCheck } from "lucide-react";
+import { BarChart3, ExternalLink, Database, ShieldCheck } from "lucide-react";
+import { GithubIcon } from "@/components/ui/github-icon";
 
 export function Footer() {
   return (
@@ -36,7 +37,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold"
           >
-            <Github className="h-3.5 w-3.5" />
+            <GithubIcon className="h-3.5 w-3.5" />
             Repositório GitHub
           </Link>
           <span className="text-white/20">•</span>

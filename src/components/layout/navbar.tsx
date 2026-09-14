@@ -1,18 +1,16 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
 import {
   BarChart3,
   Download,
-  Github,
   ExternalLink,
-  Layers,
-  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExportModal } from "@/components/dashboard/export-modal";
+import { GithubIcon } from "@/components/ui/github-icon";
 
 export function Navbar() {
   const [exportOpen, setExportOpen] = useState(false);
@@ -75,7 +73,7 @@ export function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Github className="h-3.5 w-3.5" />
+                <GithubIcon className="h-3.5 w-3.5" />
                 <span>GitHub</span>
               </Link>
             </Button>

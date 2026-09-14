@@ -1,4 +1,4 @@
-﻿import * as React from "react";
+import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const Table = React.forwardRef<
@@ -19,7 +19,7 @@ const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("[&_tr]:border-b border-white/10", className)} {...props} />
+  <thead ref={ref} className={cn("border-b border-white/10", className)} {...props} />
 ));
 TableHeader.displayName = "TableHeader";
 
@@ -29,7 +29,7 @@ const TableBody = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <tbody
     ref={ref}
-    className={cn("[&_tr:last-child]:border-0", className)}
+    className={cn("divide-y divide-white/5", className)}
     {...props}
   />
 ));
@@ -41,7 +41,7 @@ const TableFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <tfoot
     ref={ref}
-    className={cn("border-t border-white/10 bg-slate-900/50 font-medium [&>tr]:last:border-b-0", className)}
+    className={cn("border-t border-white/10 bg-slate-900/50 font-medium", className)}
     {...props}
   />
 ));
@@ -54,7 +54,7 @@ const TableRow = React.forwardRef<
   <tr
     ref={ref}
     className={cn(
-      "border-b border-white/5 transition-colors hover:bg-white/[0.04] data-[state=selected]:bg-slate-800",
+      "border-b border-white/5 transition-colors hover:bg-white/[0.04]",
       className
     )}
     {...props}
@@ -69,7 +69,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      "h-10 px-3 text-left align-middle font-bold text-slate-400 uppercase tracking-wider text-[10px] sm:text-[11px] [&:has([role=checkbox])]:pr-0",
+      "h-10 px-3 text-left align-middle font-bold text-slate-400 uppercase tracking-wider text-[10px] sm:text-[11px]",
       className
     )}
     {...props}
@@ -83,7 +83,7 @@ const TableCell = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <td
     ref={ref}
-    className={cn("p-3 align-middle text-slate-200 [&:has([role=checkbox])]:pr-0", className)}
+    className={cn("p-3 align-middle text-slate-200", className)}
     {...props}
   />
 ));
