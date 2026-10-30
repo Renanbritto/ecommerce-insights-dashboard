@@ -1,4 +1,4 @@
-﻿import * as React from "react";
+import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
@@ -9,13 +9,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-cyan-500 text-slate-950 font-bold hover:bg-cyan-400 shadow-lg shadow-cyan-500/20 active:scale-[0.98]",
-        destructive: "bg-rose-500/20 text-rose-300 border border-rose-500/40 hover:bg-rose-500/30",
-        outline: "border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/25 text-slate-200 hover:text-white",
-        secondary: "bg-slate-800/80 text-slate-200 border border-white/10 hover:bg-slate-800 hover:text-white",
-        ghost: "hover:bg-white/10 hover:text-white text-slate-300",
-        link: "text-cyan-400 underline-offset-4 hover:underline",
+        destructive: "bg-rose-500/15 dark:bg-rose-500/20 text-rose-600 dark:text-rose-300 border border-rose-500/30 dark:border-rose-500/40 hover:bg-rose-500/25",
+        outline: "border border-slate-300 dark:border-white/15 bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 hover:border-slate-400 dark:hover:border-white/25 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white shadow-sm",
+        secondary: "bg-slate-100 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white shadow-sm",
+        ghost: "hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white",
+        link: "text-cyan-600 dark:text-cyan-400 underline-offset-4 hover:underline",
         cyan: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-lg shadow-cyan-500/25 hover:from-cyan-400 hover:to-blue-500 border border-cyan-400/30 active:scale-[0.98]",
-        emerald: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 font-bold",
+        emerald: "bg-emerald-500/15 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 dark:border-emerald-500/40 hover:bg-emerald-500/25 font-bold",
       },
       size: {
         default: "h-9 px-4 py-2",

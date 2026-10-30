@@ -1,54 +1,39 @@
 import React from "react";
 import Link from "next/link";
-import { BarChart3, ExternalLink, Database, ShieldCheck } from "lucide-react";
 import { GithubIcon } from "@/components/ui/github-icon";
+import { Logo } from "@/components/ui/logo";
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-white/10 bg-slate-950/70 mt-16 py-10 px-4 sm:px-6 lg:px-8 text-xs text-slate-400">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex flex-col gap-2 text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start gap-2">
-            <span className="h-6 w-6 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center">
-              <BarChart3 className="h-3.5 w-3.5" />
-            </span>
-            <span className="font-bold text-slate-200">E-Commerce Insights Platform</span>
-          </div>
-          <p className="text-[11px] text-slate-500 max-w-md">
-            Desenvolvido com Next.js 16, TypeScript, Tailwind CSS, Shadcn UI e Recharts.
-            Estudo estatístico e exploratório (EDA) fundamentado no Brazilian E-Commerce Public Dataset da Olist no Kaggle.
-          </p>
+    <footer className="w-full border-t border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-950/70 mt-16 py-8 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 dark:text-slate-400 transition-colors duration-200">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Left: Brand Identity */}
+        <div className="flex items-center justify-center sm:justify-start gap-2.5">
+          <Logo size="sm" />
+          <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">
+            RN <span className="bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">Intelligence</span> • E-Commerce Platform
+          </span>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 text-[11px]">
-          <div className="flex items-center gap-1 text-slate-400">
-            <Database className="h-3.5 w-3.5 text-cyan-400" />
-            <span>98.247 Pedidos Processados</span>
-          </div>
-          <span className="text-white/20">•</span>
-          <div className="flex items-center gap-1 text-slate-400">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
-            <span>Código Aberto (MIT)</span>
-          </div>
-          <span className="text-white/20">•</span>
+        {/* Right: Clean links */}
+        <div className="flex items-center justify-center gap-4 text-xs font-medium">
           <Link
             href="https://github.com/Renanbritto/ecommerce-insights-dashboard"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold"
+            className="text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 flex items-center gap-1.5 transition-colors"
           >
             <GithubIcon className="h-3.5 w-3.5" />
-            Repositório GitHub
+            <span>Repositório GitHub</span>
           </Link>
-          <span className="text-white/20">•</span>
+          <span className="text-slate-300 dark:text-white/20">•</span>
           <Link
             href="https://renan-nocelli.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold"
+            className="text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
           >
-            <span>Renan Nocelli Britto</span>
-            <ExternalLink className="h-3 w-3" />
+            Renan Nocelli Britto
           </Link>
         </div>
       </div>

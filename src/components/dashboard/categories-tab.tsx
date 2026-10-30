@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useMemo } from "react";
 import {
@@ -47,18 +47,18 @@ export function CategoriesTab() {
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Gráfico de Barras Horizontais */}
-        <Card className="liquid-card border-white/10 lg:col-span-6 flex flex-col justify-between">
-          <CardHeader className="pb-3">
+        <Card className="liquid-card lg:col-span-6 flex flex-col justify-between">
+          <CardHeader className="pb-3 border-b border-slate-200/70 dark:border-white/10">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                   <Package className="h-4 w-4" />
                 </span>
                 <CardTitle className="text-base sm:text-lg">
                   Top Departamentos por GMV
                 </CardTitle>
               </div>
-              <Badge variant="success" className="text-[10px]">
+              <Badge variant="success" className="text-[10px] font-semibold">
                 Volume Financeiro
               </Badge>
             </div>
@@ -67,7 +67,7 @@ export function CategoriesTab() {
             </CardDescription>
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="pt-4">
             <div className="h-[380px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -75,7 +75,7 @@ export function CategoriesTab() {
                   layout="vertical"
                   margin={{ top: 5, right: 30, left: 10, bottom: 5 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" horizontal={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.15)" horizontal={false} />
                   <XAxis
                     type="number"
                     tick={{ fontSize: 10, fill: "#94a3b8" }}
@@ -86,7 +86,7 @@ export function CategoriesTab() {
                   <YAxis
                     type="category"
                     dataKey="name"
-                    tick={{ fontSize: 10, fill: "#cbd5e1" }}
+                    tick={{ fontSize: 10, fill: "#64748b" }}
                     axisLine={false}
                     tickLine={false}
                     width={130}
@@ -96,41 +96,38 @@ export function CategoriesTab() {
                       if (!active || !payload?.length) return null;
                       const d = payload[0].payload as CategoryMetric;
                       return (
-                        <div className="rounded-xl p-3.5 bg-slate-950/95 backdrop-blur-xl border border-white/20 text-xs shadow-2xl min-w-[200px]">
-                          <p className="font-bold text-emerald-400 pb-1.5 mb-1.5 border-b border-white/10">
+                        <div className="rounded-xl p-3.5 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border border-slate-200 dark:border-white/20 text-xs shadow-2xl min-w-[200px]">
+                          <p className="font-bold text-emerald-600 dark:text-emerald-400 pb-1.5 mb-1.5 border-b border-slate-200 dark:border-white/10">
                             {d.name}
                           </p>
-                          <div className="flex flex-col gap-1 text-slate-300">
+                          <div className="flex flex-col gap-1 text-slate-700 dark:text-slate-300">
                             <div className="flex justify-between">
-                              <span className="text-slate-400">GMV:</span>
-                              <strong className="text-white font-mono">{formatCurrency(d.revenue)}</strong>
+                              <span className="text-slate-500 dark:text-slate-400">GMV:</span>
+                              <strong className="text-slate-900 dark:text-white font-mono">{formatCurrency(d.revenue)}</strong>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-slate-400">Pedidos:</span>
-                              <strong className="text-white font-mono">{formatNumber(d.orders)}</strong>
+                              <span className="text-slate-500 dark:text-slate-400">Pedidos:</span>
+                              <strong className="text-slate-900 dark:text-white font-mono">{formatNumber(d.orders)}</strong>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-slate-400">Ticket Médio:</span>
-                              <strong className="text-cyan-400 font-mono">{formatCurrency(d.avgTicket)}</strong>
+                              <span className="text-slate-500 dark:text-slate-400">Ticket Médio:</span>
+                              <span className="font-mono text-cyan-600 dark:text-cyan-400 font-bold">{formatCurrency(d.avgTicket)}</span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-slate-400">NPS Médio:</span>
-                              <strong className="text-amber-400">⭐ {d.avgReview.toFixed(2)}</strong>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-slate-400">Prazo de Entrega:</span>
-                              <span className="text-slate-200">{d.deliveryDays.toFixed(1)} dias</span>
+                              <span className="text-slate-500 dark:text-slate-400">NPS:</span>
+                              <span className="font-bold text-amber-600 dark:text-amber-400">{d.avgReview.toFixed(2)}</span>
                             </div>
                           </div>
                         </div>
                       );
                     }}
                   />
-                  <Bar dataKey="revenue" radius={[0, 6, 6, 0]} maxBarSize={22} fill="#10b981">
-                    {filteredCategories.map((entry, index) => (
+                  <Bar dataKey="revenue" radius={[0, 6, 6, 0]}>
+                    {filteredCategories.slice(0, 8).map((entry, index) => (
                       <Cell
-                        key={`cat-cell-${index}`}
-                        fill={index === 0 ? "#06b6d4" : index < 3 ? "#10b981" : "#3b82f6"}
+                        key={`cell-${index}`}
+                        fill={index === 0 ? "#10b981" : index < 3 ? "#06b6d4" : "#3b82f6"}
+                        fillOpacity={0.85}
                       />
                     ))}
                   </Bar>
@@ -140,25 +137,23 @@ export function CategoriesTab() {
           </CardContent>
         </Card>
 
-        {/* Tabela de Métricas Detalhadas */}
-        <Card className="liquid-card border-white/10 lg:col-span-6 flex flex-col justify-between">
-          <CardHeader className="pb-3">
+        {/* Tabela Interativa de Categorias */}
+        <Card className="liquid-card lg:col-span-6 flex flex-col justify-between">
+          <CardHeader className="pb-3 border-b border-slate-200/70 dark:border-white/10">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                <span className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
                   <ArrowUpDown className="h-4 w-4" />
                 </span>
-                <CardTitle className="text-base sm:text-lg">
-                  Métricas Operacionais & Financeiras
-                </CardTitle>
+                <CardTitle className="text-base">Métricas por Segmento</CardTitle>
               </div>
 
-              {/* Filtro por Departamento e Ordenação */}
-              <div className="flex items-center gap-2 flex-wrap text-xs">
+              {/* Filtros da Tabela */}
+              <div className="flex items-center gap-2">
                 <select
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as "revenue" | "orders" | "avgTicket" | "avgReview")}
-                  className="bg-slate-900 border border-white/15 text-slate-200 text-xs rounded-lg px-2 py-1 outline-none focus:border-cyan-400 cursor-pointer"
+                  onChange={(e) => setSortBy(e.target.value as any)}
+                  className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 text-xs rounded-lg px-2 py-1 outline-none focus:border-cyan-500 cursor-pointer shadow-2xs"
                   title="Ordenar por"
                 >
                   <option value="revenue">Ordenar: Receita</option>
@@ -170,7 +165,7 @@ export function CategoriesTab() {
                 <select
                   value={selectedDepartment}
                   onChange={(e) => setSelectedDepartment(e.target.value)}
-                  className="bg-slate-900 border border-white/15 text-slate-200 text-xs rounded-lg px-2 py-1 outline-none focus:border-cyan-400 cursor-pointer"
+                  className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-white/15 text-slate-800 dark:text-slate-200 text-xs rounded-lg px-2 py-1 outline-none focus:border-cyan-500 cursor-pointer shadow-2xs"
                   title="Filtrar setor"
                 >
                   <option value="all">Todos os Setores</option>
@@ -189,10 +184,10 @@ export function CategoriesTab() {
             </CardDescription>
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="pt-4">
             <div className="max-h-[380px] overflow-y-auto pr-1">
               <Table>
-                <TableHeader className="sticky top-0 bg-slate-950/95 backdrop-blur-md z-10">
+                <TableHeader className="sticky top-0 bg-slate-100/95 dark:bg-slate-950/95 backdrop-blur-md z-10">
                   <TableRow>
                     <TableHead>Categoria</TableHead>
                     <TableHead className="text-right">Receita</TableHead>
@@ -204,25 +199,25 @@ export function CategoriesTab() {
                 <TableBody>
                   {filteredCategories.map((cat) => (
                     <TableRow key={cat.id}>
-                      <TableCell className="font-semibold text-white">
+                      <TableCell className="font-semibold text-slate-900 dark:text-white">
                         <div className="flex flex-col">
                           <span>{cat.name}</span>
-                          <span className="text-[10px] text-slate-400 font-normal">
+                          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-normal">
                             {cat.department}
                           </span>
                         </div>
                       </TableCell>
-                      <TableCell className="text-right font-mono text-emerald-400 font-bold">
+                      <TableCell className="text-right font-mono text-emerald-600 dark:text-emerald-400 font-bold">
                         {formatCurrency(cat.revenue, true)}
                       </TableCell>
-                      <TableCell className="text-right font-mono text-slate-300">
+                      <TableCell className="text-right font-mono text-slate-700 dark:text-slate-300">
                         {formatCurrency(cat.avgTicket)}
                       </TableCell>
-                      <TableCell className="text-right font-mono text-slate-400 text-[11px]">
+                      <TableCell className="text-right font-mono text-slate-500 dark:text-slate-400 text-[11px]">
                         {cat.deliveryDays.toFixed(1)} d
                       </TableCell>
-                      <TableCell className="text-right font-bold text-amber-400">
-                        ⭐ {cat.avgReview.toFixed(2)}
+                      <TableCell className="text-right font-bold text-amber-600 dark:text-amber-400">
+                        {cat.avgReview.toFixed(2)}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -235,30 +230,30 @@ export function CategoriesTab() {
 
       {/* Destaques Comparativos */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-        <div className="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex flex-col gap-1.5">
-          <span className="font-bold text-cyan-400 uppercase text-[10px] tracking-wider">
+        <div className="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex flex-col gap-1.5">
+          <span className="font-bold text-cyan-800 dark:text-cyan-400 uppercase text-[10px] tracking-wider">
             Líder em GMV: Informática & PCs
           </span>
-          <p className="text-slate-300">
+          <p className="text-slate-700 dark:text-slate-300">
             Faturamento de <strong>R$ 2.180.000</strong> impulsionado pelo segundo maior ticket médio (R$ 200,18).
           </p>
         </div>
 
-        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex flex-col gap-1.5">
-          <span className="font-bold text-emerald-400 uppercase text-[10px] tracking-wider">
+        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex flex-col gap-1.5">
+          <span className="font-bold text-emerald-800 dark:text-emerald-400 uppercase text-[10px] tracking-wider">
             Líder em Volume: Beleza & Saúde
           </span>
-          <p className="text-slate-300">
-            Maior número de pedidos (<strong>12.450</strong>) com entrega rápida (10.4 dias) e alto índice de aprovação (⭐ 4.22).
+          <p className="text-slate-700 dark:text-slate-300">
+            Maior número de pedidos (<strong>12.450</strong>) com entrega rápida (10.4 dias) e alto índice de aprovação (nota 4.22).
           </p>
         </div>
 
-        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 flex flex-col gap-1.5">
-          <span className="font-bold text-rose-400 uppercase text-[10px] tracking-wider">
+        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/25 flex flex-col gap-1.5">
+          <span className="font-bold text-rose-800 dark:text-rose-400 uppercase text-[10px] tracking-wider">
             Alerta Crítico: Móveis & Decoração
           </span>
-          <p className="text-slate-300">
-            Menor NPS do estudo (<strong>⭐ 3.86</strong>) e maior lead time (<strong>16.5 dias</strong>) decorrente de frete fracionado volumoso.
+          <p className="text-slate-700 dark:text-slate-300">
+            Menor NPS do estudo (<strong>3.86</strong>) e maior lead time (<strong>16.5 dias</strong>) decorrente de frete fracionado volumoso.
           </p>
         </div>
       </div>

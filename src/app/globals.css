@@ -1,36 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-comfortaa), 'Comfortaa', cursive, system-ui, sans-serif;
+}
+
 :root {
+  --font-comfortaa: 'Comfortaa', cursive, system-ui, sans-serif;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --border: rgba(15, 23, 42, 0.08);
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+}
+
+.dark {
   --background: #070b12;
   --foreground: #f1f5f9;
+  --card: rgba(15, 23, 42, 0.65);
+  --card-foreground: #f1f5f9;
+  --border: rgba(255, 255, 255, 0.08);
+  --muted: rgba(255, 255, 255, 0.05);
+  --muted-foreground: #94a3b8;
 }
 
 body {
-  background-color: #070b12;
-  color: #f1f5f9;
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-comfortaa), 'Comfortaa', cursive, system-ui, sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Glassmorphism & executive surface utilities */
 .liquid-glass {
-  background: rgba(13, 20, 36, 0.75);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.dark .liquid-glass {
+  background: rgba(13, 20, 36, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .liquid-card {
-  background: rgba(15, 23, 42, 0.65);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.dark .liquid-card {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: none;
+}
+
 .liquid-card:hover {
-  border-color: rgba(6, 182, 212, 0.3);
+  border-color: rgba(6, 182, 212, 0.45);
   box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
 }
 
@@ -41,12 +77,20 @@ body {
 }
 
 ::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.05);
+}
+
+.dark ::-webkit-scrollbar-track {
   background: rgba(15, 23, 42, 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 ::-webkit-scrollbar-thumb:hover {

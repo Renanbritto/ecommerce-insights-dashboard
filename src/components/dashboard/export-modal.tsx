@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import {
@@ -109,7 +109,7 @@ export function ExportModal({ open, onOpenChange }: ExportModalProps) {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <div className="flex items-center gap-2 mb-1">
-            <span className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <span className="p-2 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
               <Download className="h-4 w-4" />
             </span>
             <DialogTitle>Exportar Dados Analíticos</DialogTitle>
@@ -120,7 +120,7 @@ export function ExportModal({ open, onOpenChange }: ExportModalProps) {
         </DialogHeader>
 
         <div className="flex flex-col gap-3 py-3">
-          <label className="text-xs font-semibold text-slate-300">
+          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
             Selecione o conjunto de dados:
           </label>
           <div className="grid grid-cols-1 gap-2">
@@ -134,18 +134,18 @@ export function ExportModal({ open, onOpenChange }: ExportModalProps) {
               <button
                 key={item.id}
                 onClick={() => setSelectedDataset(item.id)}
-                className={`p-3 rounded-xl text-left border transition-all flex items-center justify-between ${
+                className={`p-3 rounded-xl text-left border transition-all flex items-center justify-between cursor-pointer ${
                   selectedDataset === item.id
-                    ? "bg-cyan-500/15 border-cyan-500/40 text-white shadow-md shadow-cyan-500/10"
-                    : "bg-white/[0.02] border-white/10 text-slate-300 hover:bg-white/[0.05] hover:border-white/20"
+                    ? "bg-cyan-500/15 border-cyan-500/40 text-slate-900 dark:text-white shadow-xs"
+                    : "bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05]"
                 }`}
               >
                 <div>
-                  <p className="text-xs font-bold text-white">{item.title}</p>
-                  <p className="text-[11px] text-slate-400">{item.sub}</p>
+                  <p className="text-xs font-bold text-slate-900 dark:text-white">{item.title}</p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">{item.sub}</p>
                 </div>
                 {selectedDataset === item.id && (
-                  <Badge variant="default" className="text-[10px]">
+                  <Badge variant="default" className="text-[10px] font-semibold">
                     Selecionado
                   </Badge>
                 )}
@@ -154,7 +154,7 @@ export function ExportModal({ open, onOpenChange }: ExportModalProps) {
           </div>
 
           {exported && (
-            <div className="flex items-center gap-2 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 p-2.5 rounded-xl">
+            <div className="flex items-center gap-2 text-xs text-emerald-700 dark:text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 p-2.5 rounded-xl font-medium">
               <CheckCircle2 className="h-4 w-4 shrink-0" />
               <span>Download iniciado com sucesso! Arquivo gerado em UTF-8.</span>
             </div>
@@ -165,7 +165,7 @@ export function ExportModal({ open, onOpenChange }: ExportModalProps) {
           <Button
             variant="outline"
             onClick={handleExportCsv}
-            className="w-full sm:w-auto flex items-center gap-2 border-emerald-500/30 hover:bg-emerald-500/10 text-emerald-300"
+            className="w-full sm:w-auto flex items-center gap-2 border-emerald-500/30 hover:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
           >
             <FileSpreadsheet className="h-4 w-4" />
             Exportar CSV

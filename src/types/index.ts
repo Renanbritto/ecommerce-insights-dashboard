@@ -1,4 +1,4 @@
-﻿// Tipagens TypeScript para o E-Commerce Insights Dashboard
+// Tipagens TypeScript para o E-Commerce Insights Dashboard
 
 export interface MonthlyTrend {
   month: string;
@@ -29,8 +29,9 @@ export interface HistogramBucket {
   min: number;
   max: number;
   count: number;
-  pct: number;
-  color: string;
+  pct?: number;
+  percentage?: number;
+  color?: string;
 }
 
 export interface StateMetric {
@@ -48,7 +49,17 @@ export interface ScatterDeliveryReview {
   days: number;
   review: number;
   orders: number;
-  category: "Entrega Flash" | "Dentro do Prazo" | "Normal" | "Alerta Atraso" | "Atraso Crítico" | "Atraso Severo";
+  category:
+    | "Entrega Flash"
+    | "Dentro do Prazo"
+    | "Normal"
+    | "Alerta Atraso"
+    | "Atraso Crítico"
+    | "Atraso Severo"
+    | "Ultra Rápido"
+    | "No Prazo"
+    | "Alerta Moderado"
+    | "Severo";
   satisfactionPct: number;
 }
 
