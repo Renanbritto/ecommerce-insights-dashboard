@@ -18,6 +18,7 @@ import { GeographyTab } from "@/components/dashboard/geography-tab";
 import { PaymentsTab } from "@/components/dashboard/payments-tab";
 import { InsightsTab } from "@/components/dashboard/insights-tab";
 import { ExportModal } from "@/components/dashboard/export-modal";
+import { RNCopilotChat } from "@/components/chat/rn-copilot-chat";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("temporal");
@@ -151,6 +152,9 @@ export default function DashboardPage() {
 
       {/* Export Modal */}
       <ExportModal open={exportOpen} onOpenChange={setExportOpen} />
+
+      {/* RN Intelligence AI Copilot Chat */}
+      <RNCopilotChat />
     </div>
   );
 }
