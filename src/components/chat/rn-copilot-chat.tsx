@@ -12,7 +12,6 @@ import {
   ChevronDown,
   ChevronUp,
   Cpu,
-  Layers,
   ExternalLink,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -29,47 +28,16 @@ interface ChatMessage {
   timestamp: string;
 }
 
-const AVAILABLE_PROJECTS = [
-  { id: "ecommerce-bi", name: "E-Commerce Brasil & Logística", tag: "Olist 98k" },
-  { id: "sales-bi", name: "Sales BI Analytics", tag: "DuckDB Star Schema" },
-  { id: "automacao-financeira", name: "Automação Financeira & DRE", tag: "DRE Contábil" },
-  { id: "churn-ml", name: "Segmentação RFM & Churn", tag: "K-Means ML" },
-  { id: "portfolio", name: "Portfólio Renan Nocelli", tag: "Carreira & Stack" },
+const SUGGESTED_QUESTIONS = [
+  "Qual o faturamento total e o ticket médio?",
+  "Qual o impacto do frete no Nordeste vs SP?",
+  "Quais as top 3 categorias por faturamento?",
+  "Como o prazo de entrega afeta as avaliações?",
 ];
-
-const SUGGESTED_QUESTIONS: Record<string, string[]> = {
-  "ecommerce-bi": [
-    "Qual o faturamento total e o ticket médio?",
-    "Qual o impacto do frete no Nordeste vs SP?",
-    "Quais as top 3 categorias por faturamento?",
-    "Como o prazo de entrega afeta o NPS?",
-  ],
-  "sales-bi": [
-    "Qual é o faturamento total e a margem?",
-    "Quem é o vendedor líder em vendas?",
-    "Quais são os produtos Classe A da curva ABC?",
-    "Qual a conversão do funil de vendas B2B?",
-  ],
-  "automacao-financeira": [
-    "Qual é o EBITDA consolidado e a margem?",
-    "Qual o status da conciliação bancária?",
-    "Apresente o resumo da DRE gerencial.",
-  ],
-  "churn-ml": [
-    "Quais são os clusters de clientes no K-Means?",
-    "Quantos clientes VIP estão em risco de churn?",
-    "Quais ações de CRM são recomendadas?",
-  ],
-  portfolio: [
-    "Quais são os principais projetos de Renan?",
-    "Qual é a stack técnica que ele domina?",
-    "Como funciona a arquitetura do RN Intelligence?",
-  ],
-};
 
 export function RNCopilotChat() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeProject, setActiveProject] = useState("ecommerce-bi");
+  const activeProject = "ecommerce-bi";
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [copiedQueryId, setCopiedQueryId] = useState<string | null>(null);
@@ -79,7 +47,7 @@ export function RNCopilotChat() {
     {
       id: "welcome-1",
       sender: "assistant",
-      text: "Olá! Sou o **RN Intelligence**, seu assistente analítico integrado ao ecossistema de dados.\n\nVocê pode me fazer perguntas sobre **GMV, ticket médio, logística regional e sazonalidade** da base do E-Commerce, ou alternar o motor para consultar outros projetos como **Sales BI, Finanças e Churn ML**.\n\nSelecione uma pergunta rápida abaixo ou digite sua dúvida:",
+      text: "Olá! Sou o **RN Intelligence**, seu assistente analítico do dashboard de E-Commerce.\n\nVocê pode me fazer perguntas sobre **faturamento (GMV), ticket médio, logística regional (prazos/fretes) e categorias** da base Olist (98k pedidos).\n\nSelecione uma pergunta rápida abaixo ou digite sua dúvida:",
       timestamp: "Agora",
       mode: "rn_intelligence",
     },
@@ -176,9 +144,7 @@ export function RNCopilotChat() {
       {
         id: `welcome-${Date.now()}`,
         sender: "assistant",
-        text: `Conversa reiniciada. Projeto ativo: **${
-          AVAILABLE_PROJECTS.find((p) => p.id === activeProject)?.name
-        }**.\n\nComo posso ajudar na sua análise?`,
+        text: "Conversa reiniciada. Como posso ajudar na sua análise do E-Commerce hoje?",
         timestamp: "Agora",
         mode: "rn_intelligence",
       },
@@ -256,75 +222,45 @@ export function RNCopilotChat() {
       {isOpen && (
         <div className="fixed bottom-20 right-4 sm:right-6 z-50 w-[94vw] sm:w-[440px] md:w-[480px] h-[600px] max-h-[82vh] bg-white/95 dark:bg-[#090d16]/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/15 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
           {/* Header da Janela */}
-          <div className="p-3.5 border-b border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-950/60 flex flex-col gap-2.5 shrink-0">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="h-8 w-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md">
-                  <MessageCircle className="h-4 w-4" />
-                </div>
-                <div className="flex flex-col leading-tight">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs font-extrabold text-slate-900 dark:text-white">
-                      RN Intelligence
-                    </span>
-                    <Badge variant="cyan" className="text-[9px] py-0 px-1.5 font-bold">
-                      RAG
-                    </Badge>
-                  </div>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                    API Online • Motor Analítico
-                  </span>
-                </div>
+          <div className="p-3.5 border-b border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-950/60 flex items-center justify-between shrink-0">
+            <div className="flex items-center gap-2.5">
+              <div className="h-8 w-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md">
+                <MessageCircle className="h-4 w-4" />
               </div>
-
-              {/* Botões de Ação do Header */}
-              <div className="flex items-center gap-1">
-                <button
-                  type="button"
-                  onClick={handleResetChat}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors cursor-pointer"
-                  title="Reiniciar conversa"
-                >
-                  <RotateCcw className="h-3.5 w-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(false)}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors cursor-pointer"
-                  title="Fechar chat"
-                >
-                  <X className="h-4 w-4" />
-                </button>
+              <div className="flex flex-col leading-tight">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs font-extrabold text-slate-900 dark:text-white">
+                    RN Intelligence
+                  </span>
+                  <Badge variant="cyan" className="text-[9px] py-0 px-1.5 font-bold">
+                    BI Copilot
+                  </Badge>
+                </div>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                  API Online • E-Commerce Brasil (Olist 98k)
+                </span>
               </div>
             </div>
 
-            {/* Seletor de Motor / Projeto Ativo */}
-            <div className="flex items-center gap-1.5 bg-slate-200/60 dark:bg-slate-900/90 p-1 rounded-xl border border-slate-300/60 dark:border-white/10 overflow-x-auto text-xs custom-scrollbar">
-              <Layers className="h-3.5 w-3.5 text-cyan-500 shrink-0 ml-1" />
-              <select
-                value={activeProject}
-                onChange={(e) => {
-                  setActiveProject(e.target.value);
-                  const p = AVAILABLE_PROJECTS.find((item) => item.id === e.target.value);
-                  setMessages((prev) => [
-                    ...prev,
-                    {
-                      id: `switch-${Date.now()}`,
-                      sender: "assistant",
-                      text: `Motor analítico alterado para: **${p?.name}** (${p?.tag}). As próximas consultas serão respondidas com as regras e esquema de dados deste projeto.`,
-                      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-                    },
-                  ]);
-                }}
-                className="bg-transparent border-none text-[11px] font-bold text-slate-800 dark:text-slate-200 outline-none cursor-pointer w-full"
+            {/* Botões de Ação do Header */}
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={handleResetChat}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors cursor-pointer"
+                title="Reiniciar conversa"
               >
-                {AVAILABLE_PROJECTS.map((p) => (
-                  <option key={p.id} value={p.id} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
-                    {p.name} ({p.tag})
-                  </option>
-                ))}
-              </select>
+                <RotateCcw className="h-3.5 w-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors cursor-pointer"
+                title="Fechar chat"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
@@ -430,8 +366,7 @@ export function RNCopilotChat() {
             <span className="text-slate-400 text-[10px] font-bold uppercase shrink-0">
               Sugestões:
             </span>
-            {(SUGGESTED_QUESTIONS[activeProject] || SUGGESTED_QUESTIONS["ecommerce-bi"]).map(
-              (q, idx) => (
+            {SUGGESTED_QUESTIONS.map((q, idx) => (
                 <button
                   key={idx}
                   type="button"
