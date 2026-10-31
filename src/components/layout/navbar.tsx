@@ -7,6 +7,7 @@ import {
   Menu,
   PanelLeftClose,
   PanelLeft,
+  MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -89,6 +90,23 @@ export function Navbar({
 
           {/* Right Action buttons */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* RN Intelligence Quick Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("open-rn-copilot"));
+                }
+              }}
+              className="hidden sm:flex items-center gap-1.5 text-xs border-cyan-500/30 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-500/10 cursor-pointer shadow-2xs font-bold"
+              title="Abrir o assistente analítico RN Intelligence"
+            >
+              <MessageCircle className="h-3.5 w-3.5" />
+              <span>RN Intelligence</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            </Button>
+
             {/* Theme Toggle Button */}
             <ThemeToggle />
 
