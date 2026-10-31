@@ -110,8 +110,8 @@ function generateEcommerceInsight(message: string): {
 
   // Resumo Geral / Default
   return {
-    reply: `Olá! Eu sou o **RN Intelligence Copilot**, seu analista analítico integrado.\n\nEstou conectado ao ecossistema multi-tenant da **RN Intelligence API** e aos dados tratados do **Brazilian E-Commerce (Olist)**:\n\n• **98.247 Pedidos** consolidados em 24 meses\n• **R$ 14,81 M** em faturamento bruto transacionado\n• Mapeamento de frete e prazos nas **27 UFs do Brasil**\n• Decomposição de sazonalidade e efeito da **Black Friday**\n\nComo posso apoiar seu diagnóstico analítico ou decisão estratégica de negócio agora?`,
-    sql_query: `SELECT 'RN Intelligence Engine' AS service, 'Gemini 2.0 Flash + DuckDB' AS stack;`,
+    reply: `Olá! Eu sou o **RN Intelligence**, seu assistente analítico integrado.\n\nEstou conectado ao ecossistema multi-tenant da **RN Intelligence API** e aos dados tratados do **Brazilian E-Commerce (Olist)**:\n\n• **98.247 Pedidos** consolidados em 24 meses\n• **R$ 14,81 M** em faturamento bruto transacionado\n• Mapeamento de frete e prazos nas **27 UFs do Brasil**\n• Decomposição de sazonalidade e efeito da **Black Friday**\n\nComo posso apoiar seu diagnóstico analítico ou decisão estratégica de negócio agora?`,
+    sql_query: `SELECT 'RN Intelligence Engine' AS service, 'DuckDB + RAG Engine' AS stack;`,
     mode: "rn_copilot_ready",
   };
 }

@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import {
-  Bot,
+  MessageCircle,
   Send,
   X,
   RotateCcw,
@@ -13,7 +13,6 @@ import {
   ChevronUp,
   Cpu,
   Layers,
-  MessageSquare,
   ExternalLink,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -80,9 +79,9 @@ export function RNCopilotChat() {
     {
       id: "welcome-1",
       sender: "assistant",
-      text: "Olá! Sou o **RN Intelligence Copilot**, seu analista de IA integrado ao ecossistema de dados.\n\nVocê pode me fazer perguntas sobre **GMV, ticket médio, logística regional e sazonalidade** da base do E-Commerce, ou alternar o motor para consultar outros projetos como **Sales BI, Finanças e Churn ML**.\n\nSelecione uma pergunta rápida abaixo ou digite sua dúvida:",
+      text: "Olá! Sou o **RN Intelligence**, seu assistente analítico integrado ao ecossistema de dados.\n\nVocê pode me fazer perguntas sobre **GMV, ticket médio, logística regional e sazonalidade** da base do E-Commerce, ou alternar o motor para consultar outros projetos como **Sales BI, Finanças e Churn ML**.\n\nSelecione uma pergunta rápida abaixo ou digite sua dúvida:",
       timestamp: "Agora",
-      mode: "gemini-2.0-flash",
+      mode: "rn_intelligence",
     },
   ]);
 
@@ -181,7 +180,7 @@ export function RNCopilotChat() {
           AVAILABLE_PROJECTS.find((p) => p.id === activeProject)?.name
         }**.\n\nComo posso ajudar na sua análise?`,
         timestamp: "Agora",
-        mode: "gemini-2.0-flash",
+        mode: "rn_intelligence",
       },
     ]);
   };
@@ -234,7 +233,7 @@ export function RNCopilotChat() {
           aria-label="Abrir assistente analítico RN Intelligence"
         >
           <div className="relative flex items-center justify-center">
-            <Bot className="h-5 w-5 text-white" />
+            <MessageCircle className="h-5 w-5 text-white" />
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
@@ -243,17 +242,17 @@ export function RNCopilotChat() {
 
           <div className="flex flex-col text-left leading-tight">
             <span className="text-xs font-black tracking-wide flex items-center gap-1.5">
-              RN Copilot
+              RN Intelligence
               <span className="text-[9px] px-1 py-0.2 rounded bg-white/20 font-mono font-bold">
                 IA
               </span>
             </span>
-            <span className="text-[9px] opacity-90 font-medium">Gemini 2.0 Flash</span>
+            <span className="text-[9px] opacity-90 font-medium">Assistente Analítico</span>
           </div>
         </button>
       </div>
 
-      {/* 2. Janela Flutuante do Chat Copilot */}
+      {/* 2. Janela Flutuante do Chat RN Intelligence */}
       {isOpen && (
         <div className="fixed bottom-20 right-4 sm:right-6 z-50 w-[94vw] sm:w-[440px] md:w-[480px] h-[600px] max-h-[82vh] bg-white/95 dark:bg-[#090d16]/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/15 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
           {/* Header da Janela */}
@@ -261,12 +260,12 @@ export function RNCopilotChat() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <div className="h-8 w-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md">
-                  <Bot className="h-4 w-4" />
+                  <MessageCircle className="h-4 w-4" />
                 </div>
                 <div className="flex flex-col leading-tight">
                   <div className="flex items-center gap-1.5">
                     <span className="text-xs font-extrabold text-slate-900 dark:text-white">
-                      RN Intelligence Copilot
+                      RN Intelligence
                     </span>
                     <Badge variant="cyan" className="text-[9px] py-0 px-1.5 font-bold">
                       RAG
@@ -274,7 +273,7 @@ export function RNCopilotChat() {
                   </div>
                   <span className="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                    API Online • DuckDB & Gemini
+                    API Online • Motor Analítico
                   </span>
                 </div>
               </div>
@@ -478,7 +477,7 @@ export function RNCopilotChat() {
 
             <div className="flex items-center justify-between mt-2 text-[9px] text-slate-400 dark:text-slate-500">
               <span className="flex items-center gap-1">
-                <MessageSquare className="h-2.5 w-2.5 text-cyan-500" />
+                <MessageCircle className="h-2.5 w-2.5 text-cyan-500" />
                 Conectado ao RN Intelligence API
               </span>
               <a
