@@ -35,6 +35,16 @@ const SUGGESTED_QUESTIONS = [
   "Como o prazo de entrega afeta as avaliações?",
 ];
 
+let msgCounter = 0;
+function createMessageId(prefix: string): string {
+  msgCounter += 1;
+  return `${prefix}-${Date.now()}-${msgCounter}`;
+}
+
+function getFormattedTime(): string {
+  return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
 export function RNCopilotChat() {
   const [isOpen, setIsOpen] = useState(false);
   const activeProject = "ecommerce-bi";
@@ -82,10 +92,10 @@ export function RNCopilotChat() {
     if (!text || isLoading) return;
 
     const userMsg: ChatMessage = {
-      id: `user-${Date.now()}`,
+      id: createMessageId("user"),
       sender: "user",
       text,
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      timestamp: getFormattedTime(),
     };
 
     setMessages((prev) => [...prev, userMsg]);
@@ -109,23 +119,23 @@ export function RNCopilotChat() {
       const data = await res.json();
 
       const assistantMsg: ChatMessage = {
-        id: `assistant-${Date.now()}`,
+        id: createMessageId("assistant"),
         sender: "assistant",
         text: data.reply || "Resposta recebida com sucesso.",
         sqlQuery: data.sql_query,
         queryResults: data.query_results,
         executionTimeMs: data.execution_time_ms,
         mode: data.mode || "rag_analytical_engine",
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        timestamp: getFormattedTime(),
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
     } catch {
       const errorMsg: ChatMessage = {
-        id: `error-${Date.now()}`,
+        id: createMessageId("error"),
         sender: "assistant",
         text: "Desculpe, ocorreu uma instabilidade na conexão com o servidor analítico. Por favor, tente novamente em alguns instantes.",
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        timestamp: getFormattedTime(),
       };
       setMessages((prev) => [...prev, errorMsg]);
     } finally {
@@ -142,7 +152,7 @@ export function RNCopilotChat() {
   const handleResetChat = () => {
     setMessages([
       {
-        id: `welcome-${Date.now()}`,
+        id: createMessageId("welcome"),
         sender: "assistant",
         text: "Conversa reiniciada. Como posso ajudar na sua análise do E-Commerce hoje?",
         timestamp: "Agora",

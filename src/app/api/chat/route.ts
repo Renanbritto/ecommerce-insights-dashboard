@@ -3,7 +3,6 @@ import {
   GLOBAL_KPI_SUMMARY,
   STATES_DATA,
   CATEGORIES_DATA,
-  MONTHLY_TRENDS,
 } from "@/data/ecommerce-dataset";
 import { CategoryMetric } from "@/types";
 import { formatCurrency, formatNumber } from "@/lib/utils";
