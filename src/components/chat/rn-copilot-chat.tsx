@@ -197,19 +197,19 @@ export function RNCopilotChat() {
   return (
     <>
       {/* 1. Botão Flutuante (FAB) no Canto Inferior Direito */}
-      <div className="fixed bottom-5 right-5 z-50 select-none">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 select-none">
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className={`flex items-center gap-2.5 px-4 py-3 rounded-2xl shadow-2xl transition-all duration-300 cursor-pointer border ${
+          className={`flex items-center gap-2 sm:gap-2.5 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full sm:rounded-2xl shadow-xl transition-all duration-300 cursor-pointer border ${
             isOpen
               ? "bg-slate-900 text-white border-slate-700 hover:bg-slate-800"
-              : "bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-cyan-400/40 hover:scale-105 hover:shadow-cyan-500/25"
+              : "bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-cyan-400/40 hover:scale-105 hover:shadow-cyan-500/25 active:scale-95"
           }`}
           aria-label="Abrir assistente analítico RN Intelligence"
         >
           <div className="relative flex items-center justify-center">
-            <MessageCircle className="h-5 w-5 text-white" />
+            <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
@@ -223,14 +223,16 @@ export function RNCopilotChat() {
                 IA
               </span>
             </span>
-            <span className="text-[9px] opacity-90 font-medium">Assistente Analítico</span>
+            <span className="text-[9px] opacity-90 font-medium hidden sm:block">
+              Assistente Analítico
+            </span>
           </div>
         </button>
       </div>
 
       {/* 2. Janela Flutuante do Chat RN Intelligence */}
       {isOpen && (
-        <div className="fixed bottom-20 right-4 sm:right-6 z-50 w-[94vw] sm:w-[440px] md:w-[480px] h-[600px] max-h-[82vh] bg-white/95 dark:bg-[#090d16]/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/15 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
+        <div className="fixed bottom-16 sm:bottom-20 right-2 sm:right-6 z-50 w-[calc(100vw-1rem)] sm:w-[440px] md:w-[480px] h-[540px] max-h-[78vh] bg-white/95 dark:bg-[#090d16]/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/15 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
           {/* Header da Janela */}
           <div className="p-3.5 border-b border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-950/60 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2.5">

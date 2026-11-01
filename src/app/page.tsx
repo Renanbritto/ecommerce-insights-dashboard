@@ -19,6 +19,7 @@ import { PaymentsTab } from "@/components/dashboard/payments-tab";
 import { InsightsTab } from "@/components/dashboard/insights-tab";
 import { ExportModal } from "@/components/dashboard/export-modal";
 import { RNCopilotChat } from "@/components/chat/rn-copilot-chat";
+import { cn } from "@/lib/utils";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("temporal");
@@ -57,7 +58,7 @@ export default function DashboardPage() {
 
         {/* Content Area */}
         <div className="flex-1 min-w-0 flex flex-col">
-          <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 flex flex-col gap-8">
+          <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-16 flex flex-col gap-6 sm:gap-8">
             {/* Hero & Context Banner */}
             <section className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-2 border-b border-slate-200/80 dark:border-white/10">
               <div className="flex flex-col gap-2">
@@ -99,6 +100,44 @@ export default function DashboardPage() {
             <section>
               <HeaderStats />
             </section>
+
+            {/* Quick Horizontal Module Tabs Bar (Mobile & Tablet) */}
+            <div className="lg:hidden -mt-2">
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 no-scrollbar scroll-smooth">
+                {NAV_ITEMS.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = activeTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setActiveTab(item.id)}
+                      className={cn(
+                        "flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer border",
+                        isActive
+                          ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-cyan-400/40 shadow-md shadow-cyan-500/25"
+                          : "bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 border-slate-200/90 dark:border-white/10 hover:text-slate-900 dark:hover:text-white"
+                      )}
+                    >
+                      <Icon className={cn("h-3.5 w-3.5", isActive ? "text-white" : "text-cyan-500")} />
+                      <span>{item.shortLabel}</span>
+                      {item.badge && (
+                        <span
+                          className={cn(
+                            "text-[9px] px-1.5 py-0.2 rounded font-mono",
+                            isActive
+                              ? "bg-white/20 text-white"
+                              : "bg-slate-200/80 dark:bg-white/10 text-slate-500 dark:text-slate-400"
+                          )}
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
             {/* Active Analytical Module Section */}
             <section className="w-full">
