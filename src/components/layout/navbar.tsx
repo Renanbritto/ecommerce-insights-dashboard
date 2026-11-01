@@ -32,16 +32,16 @@ export function Navbar({
   return (
     <>
       <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-slate-950/85 backdrop-blur-xl transition-colors duration-200">
-        <div className="w-full px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <div className="w-full px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
           {/* Left: Mobile trigger, Desktop collapse trigger & Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Mobile Hamburger Button */}
             {onOpenMobileSidebar && (
               <button
                 type="button"
                 onClick={onOpenMobileSidebar}
-                className="lg:hidden p-2 -ml-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors cursor-pointer"
-                aria-label="Abrir menu de navegação"
+                className="lg:hidden p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
+                aria-label="Abrir menu de módulos analíticos"
               >
                 <Menu className="h-5 w-5" />
               </button>
@@ -65,10 +65,10 @@ export function Navbar({
             )}
 
             {/* Logo & E-Commerce Insights Title */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <Logo size="md" />
               <div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 sm:gap-2">
                   <span className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white tracking-tight">
                     E-Commerce{" "}
                     <span className="bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
@@ -89,8 +89,8 @@ export function Navbar({
           </div>
 
           {/* Right Action buttons */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* RN Intelligence Quick Button */}
+          <div className="flex items-center gap-1.5 sm:gap-3">
+            {/* RN Intelligence Quick Button (Desktop only, as on mobile the floating bottom-right button is always accessible) */}
             <Button
               variant="outline"
               size="sm"
@@ -115,11 +115,11 @@ export function Navbar({
               variant="outline"
               size="sm"
               onClick={() => setExportOpen(true)}
-              className="flex items-center gap-1.5 text-xs cursor-pointer"
+              className="flex items-center gap-1.5 text-xs px-2.5 sm:px-3 cursor-pointer"
             >
               <Download className="h-3.5 w-3.5 text-cyan-600 dark:text-cyan-400" />
               <span className="hidden sm:inline">Exportar Dados</span>
-              <span className="sm:hidden">Exportar</span>
+              <span className="sm:hidden text-[11px]">Exportar</span>
             </Button>
 
             {/* GitHub Button */}
@@ -127,15 +127,16 @@ export function Navbar({
               variant="secondary"
               size="sm"
               asChild
-              className="flex items-center gap-1.5 text-xs"
+              className="flex items-center gap-1.5 text-xs px-2.5 sm:px-3"
             >
               <Link
                 href="https://github.com/Renanbritto/ecommerce-insights-dashboard"
                 target="_blank"
                 rel="noopener noreferrer"
+                title="Repositório no GitHub"
               >
                 <GithubIcon className="h-3.5 w-3.5" />
-                <span>GitHub</span>
+                <span className="hidden sm:inline">GitHub</span>
               </Link>
             </Button>
           </div>
