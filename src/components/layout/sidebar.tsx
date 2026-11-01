@@ -99,7 +99,7 @@ export function Sidebar({
       {/* Mobile Backdrop Overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 dark:bg-black/75 backdrop-blur-sm lg:hidden transition-opacity"
+          className="fixed inset-0 z-50 bg-black/60 dark:bg-black/80 backdrop-blur-sm lg:hidden transition-opacity duration-300"
           onClick={onCloseMobile}
           aria-hidden="true"
         />
@@ -108,30 +108,32 @@ export function Sidebar({
       {/* Sidebar Container */}
       <aside
         className={cn(
-          "fixed top-16 bottom-0 left-0 z-40 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)]",
-          "flex flex-col bg-white/95 dark:bg-slate-950/85 backdrop-blur-xl border-r border-slate-200/80 dark:border-white/10",
-          "transition-all duration-300 ease-in-out select-none shadow-md lg:shadow-none",
-          // Mobile state: slide in/out
-          mobileOpen ? "translate-x-0 w-72" : "-translate-x-full lg:translate-x-0",
-          // Desktop state: collapsed or expanded
+          "fixed top-0 bottom-0 left-0 z-50 lg:z-30 lg:top-16 lg:h-[calc(100vh-4rem)]",
+          "flex flex-col bg-white/95 dark:bg-[#070b12]/95 backdrop-blur-2xl border-r border-slate-200/80 dark:border-white/10",
+          "transition-all duration-300 ease-in-out select-none shadow-2xl lg:shadow-none",
+          // Mobile state: sleek off-canvas drawer with rounded right edge
+          mobileOpen
+            ? "translate-x-0 w-[85vw] max-w-[320px] rounded-r-3xl"
+            : "-translate-x-full lg:translate-x-0",
+          // Desktop state: collapsed (w-20) or expanded (w-72)
           !mobileOpen && (isCollapsed ? "lg:w-20" : "lg:w-72")
         )}
       >
         {/* Header / Toggle Section */}
-        <div className="flex items-center justify-between h-14 px-3.5 border-b border-slate-200/80 dark:border-white/10 shrink-0">
+        <div className="flex items-center justify-between h-16 px-4 border-b border-slate-200/80 dark:border-white/10 shrink-0">
           <div
             className={cn(
-              "flex items-center gap-2.5 overflow-hidden transition-all duration-300",
+              "flex items-center gap-3 overflow-hidden transition-all duration-300",
               isCollapsed && !mobileOpen ? "lg:opacity-0 lg:w-0" : "opacity-100"
             )}
           >
             <Logo size="sm" />
             <div className="flex flex-col leading-tight whitespace-nowrap">
-              <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200">
-                RN Intelligence
+              <span className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">
+                Módulos Analíticos
               </span>
-              <span className="text-[9px] text-cyan-600 dark:text-cyan-400 font-semibold">
-                6 Módulos Analíticos
+              <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-semibold">
+                6 Dimensões de Negócio
               </span>
             </div>
           </div>
@@ -161,7 +163,7 @@ export function Sidebar({
             <button
               type="button"
               onClick={onCloseMobile}
-              className="lg:hidden flex items-center justify-center h-8 w-8 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10"
+              className="lg:hidden flex items-center justify-center h-9 w-9 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer"
               aria-label="Fechar menu"
             >
               <X className="h-4 w-4" />
@@ -170,7 +172,7 @@ export function Sidebar({
         </div>
 
         {/* Navigation List */}
-        <nav className="flex-1 overflow-y-auto overflow-x-hidden p-2.5 space-y-1.5 custom-scrollbar">
+        <nav className="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-2 custom-scrollbar">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -184,32 +186,32 @@ export function Sidebar({
                   onCloseMobile();
                 }}
                 className={cn(
-                  "group relative w-full flex items-center rounded-xl text-left transition-all duration-200 cursor-pointer",
+                  "group relative w-full flex items-center rounded-2xl text-left transition-all duration-200 cursor-pointer",
                   // Layout when collapsed vs expanded
                   isCollapsed && !mobileOpen
                     ? "lg:justify-center lg:px-0 lg:py-2.5"
-                    : "px-3 py-2.5 gap-3",
+                    : "px-3.5 py-3 gap-3",
                   // Active vs Inactive styles
                   isActive
                     ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold shadow-lg shadow-cyan-500/25 border border-cyan-400/40"
-                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-white/5 border border-transparent"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100/80 dark:hover:bg-white/5 border border-transparent"
                 )}
                 title={isCollapsed && !mobileOpen ? `${item.label} — ${item.description}` : undefined}
               >
-                {/* Icon */}
+                {/* Icon in stylish container */}
                 <div
                   className={cn(
-                    "flex items-center justify-center shrink-0 transition-transform duration-200",
-                    isCollapsed && !mobileOpen ? "h-9 w-9 rounded-lg" : "h-7 w-7",
+                    "flex items-center justify-center shrink-0 rounded-xl transition-all duration-200",
+                    isCollapsed && !mobileOpen ? "h-10 w-10" : "h-8 w-8",
                     isActive
-                      ? "text-white group-hover:scale-105"
-                      : "text-slate-500 dark:text-slate-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400"
+                      ? "bg-white/20 text-white shadow-inner"
+                      : "bg-slate-200/60 dark:bg-white/5 text-slate-600 dark:text-slate-400 group-hover:text-cyan-500 group-hover:bg-cyan-500/10"
                   )}
                 >
                   <Icon className={cn("h-4 w-4", isCollapsed && !mobileOpen && "h-5 w-5")} />
                 </div>
 
-                {/* Text Labels (when expanded) */}
+                {/* Text Labels */}
                 <div
                   className={cn(
                     "flex-1 min-w-0 transition-all duration-200",
@@ -225,7 +227,7 @@ export function Sidebar({
                         className={cn(
                           "text-[9px] px-1.5 py-0.5 rounded-md font-mono tracking-wide shrink-0",
                           isActive
-                            ? "bg-white/20 text-white border border-white/30"
+                            ? "bg-white/25 text-white border border-white/30"
                             : "bg-slate-200/70 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-300/70 dark:border-white/10 group-hover:text-cyan-600 dark:group-hover:text-cyan-300"
                         )}
                       >
@@ -236,7 +238,7 @@ export function Sidebar({
                   <p
                     className={cn(
                       "text-[10px] truncate leading-tight mt-0.5",
-                      isActive ? "text-cyan-100" : "text-slate-500 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-400"
+                      isActive ? "text-cyan-100" : "text-slate-500 dark:text-slate-400"
                     )}
                   >
                     {item.description}
@@ -252,29 +254,24 @@ export function Sidebar({
           })}
         </nav>
 
-        {/* Footer / Info Block */}
+        {/* Footer / Minimal & Clean Status Line */}
         <div className="p-3 border-t border-slate-200/80 dark:border-white/10 shrink-0">
           {isCollapsed && !mobileOpen ? (
             <div
-              className="hidden lg:flex flex-col items-center justify-center p-2 rounded-xl bg-slate-100 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
-              title="RN Intelligence • 98.247 Pedidos Tratados"
+              className="hidden lg:flex flex-col items-center justify-center p-2 rounded-xl bg-slate-100 dark:bg-white/[0.03] text-slate-400 hover:text-cyan-500 transition-colors"
+              title="Base Olist • 98.247 Pedidos Reais"
             >
-              <Database className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+              <Database className="h-4 w-4 text-cyan-500" />
             </div>
           ) : (
-            <div className="rounded-xl bg-slate-100/80 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/5 p-3 flex flex-col gap-1.5">
-              <div className="flex items-center justify-between text-[11px]">
-                <span className="font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                  <Database className="h-3.5 w-3.5 text-cyan-600 dark:text-cyan-400" />
-                  RN Intelligence
-                </span>
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono font-medium flex items-center gap-1">
-                  <CheckCircle2 className="h-3 w-3" /> 100%
-                </span>
-              </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-500 leading-snug">
-                98.247 pedidos reais com tratamento de outliers e engenharia de features.
-              </p>
+            <div className="flex items-center justify-between px-2 py-1.5 text-[11px] text-slate-500 dark:text-slate-400">
+              <span className="flex items-center gap-1.5 font-medium">
+                <Database className="h-3.5 w-3.5 text-cyan-500" />
+                Base Olist (98.2k)
+              </span>
+              <span className="text-[10px] font-mono text-emerald-500 flex items-center gap-1">
+                <CheckCircle2 className="h-3 w-3" /> Consolidada
+              </span>
             </div>
           )}
         </div>
